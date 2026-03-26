@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ERP.Core.Models;
+
+public partial class ProductAttribute
+{
+    public int Id { get; set; }
+
+    public int ProductId { get; set; }
+
+    public string? Name { get; set; }
+
+    public bool IsDeleted { get; set; }
+
+    public virtual Product Product { get; set; } = null!;
+
+    public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; } = new List<ProductAttributeValue>();
+}

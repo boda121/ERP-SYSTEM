@@ -1,0 +1,605 @@
+[
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Add",
+    "RelativePath": "api/Order/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.OrderDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.OrderController",
+    "Method": "addorder",
+    "RelativePath": "api/Order/AddOrderWithItems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.CreateOrderDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "api/Order/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Edit",
+    "RelativePath": "api/Order/Edit/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.OrderDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetAll",
+    "RelativePath": "api/Order/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetById",
+    "RelativePath": "api/Order/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Order, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.OrderDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Recovry",
+    "RelativePath": "api/Order/Recovry/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Add",
+    "RelativePath": "Branch/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.BranchDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Branch/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Edit",
+    "RelativePath": "Branch/Edit/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.BranchDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetAll",
+    "RelativePath": "Branch/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetById",
+    "RelativePath": "Branch/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Branch, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.BranchDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Recovry",
+    "RelativePath": "Branch/Recovry/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Add",
+    "RelativePath": "Category/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.CategoryDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Category/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Edit",
+    "RelativePath": "Category/Edit/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.CategoryDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetAll",
+    "RelativePath": "Category/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "GetById",
+    "RelativePath": "Category/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.GenericController\u00603[[ERP.Core.Models.Category, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ERP.Core.DTOs.CategoryDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Recovry",
+    "RelativePath": "Category/Recovry/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "Add",
+    "RelativePath": "Product/AddProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Sku",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "UnitId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "BasePrice",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductAttributes",
+        "Type": "System.Collections.Generic.ICollection\u00601[[ERP.Core.DTOs.ProductAttributeDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductImages",
+        "Type": "System.Collections.Generic.ICollection\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductVariants",
+        "Type": "System.Collections.Generic.ICollection\u00601[[ERP.Core.DTOs.ProductVariantDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "Delete",
+    "RelativePath": "Product/DeleteProduct/id",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "Get",
+    "RelativePath": "Product/GetAllProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "GetByID",
+    "RelativePath": "Product/GetById/id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "RecovryProduct",
+    "RelativePath": "Product/RecovryProduct/id",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.ProductController",
+    "Method": "Update",
+    "RelativePath": "Product/UpdateProduct/id",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Sku",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "UnitId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "BasePrice",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductAttributes",
+        "Type": "System.Collections.Generic.ICollection\u00601[[ERP.Core.DTOs.ProductAttributeDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductImages",
+        "Type": "System.Collections.Generic.ICollection\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductVariants",
+        "Type": "System.Collections.Generic.ICollection\u00601[[ERP.Core.DTOs.ProductVariantDto, ERP.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "AddPurchase",
+    "RelativePath": "Purchase/AddPurchase",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.PurchaseInvoiceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "AddSupplier",
+    "RelativePath": "Purchase/AddSupplier",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.SupplierDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "DeleteSupplier",
+    "RelativePath": "Purchase/DeleteSupplier/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "EditSupplier",
+    "RelativePath": "Purchase/EditSupplier/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERP.Core.DTOs.SupplierDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "GetAllPurchase",
+    "RelativePath": "Purchase/GetAllPurchase",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "GetAllSupplier",
+    "RelativePath": "Purchase/GetAllSupplier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "GetPurchaseByID",
+    "RelativePath": "Purchase/GetPurchaseByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "GetSupplierByID",
+    "RelativePath": "Purchase/GetSupplierByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERP.API.Controllers.PurchaseController",
+    "Method": "RecovrySupplier",
+    "RelativePath": "Purchase/RecovrySupplier/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

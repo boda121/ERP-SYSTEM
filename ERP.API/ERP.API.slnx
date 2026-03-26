@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../ERP.Core/ERP.Core.csproj" />
+  <Project Path="../ERP.EF/ERP.EF.csproj" />
+  <Project Path="../ERP.Services/ERP.Services.csproj" Id="7ba9f89f-eb8c-416f-a2cb-58ef4f70b62d" />
+  <Project Path="ERP.API.csproj" />
+</Solution>
