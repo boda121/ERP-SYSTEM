@@ -17,53 +17,12 @@ namespace ERP.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("SQL_Latin1_General_CP1_CI_AS")
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AspNetUserRole", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "NormalizedName" }, "RoleNameIndex")
-                        .IsUnique()
-                        .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetRoleClaim", b =>
+            modelBuilder.Entity("ERP.Core.Models.AuditLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,24 +30,1013 @@ namespace ERP.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ClaimType")
+                    b.Property<string>("Action")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NewValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RowId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "RoleId" }, "IX_AspNetRoleClaims_RoleId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AuditLogs");
                 });
 
-            modelBuilder.Entity("ERP.Core.Models.AspNetUser", b =>
+            modelBuilder.Entity("ERP.Core.Models.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.CashierSession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ClosedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("ClosingAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("OpenedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("OpeningAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalRefunds")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalSales")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CashierSessions");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Category1id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiscountType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("MaxDiscount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("MinOrder")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coupons");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DiscountType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ErrorLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StackTrace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ErrorLogs");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.InventoryTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("InventoryTransactionTypesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QuantityChange")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ReferenceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransactionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("InventoryTransactionTypesId");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("InventoryTransactions");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.InventoryTransactionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InventoryTransactionTypes");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.OnlineCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OnlineCarts");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.OnlineCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OnlineCartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OnlineCartId");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.ToTable("OnlineCartItems");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Shipping")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ShippingAddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShippingAddressesid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShippingAddressesid");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SalesInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionRef")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("SalesInvoiceId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethods");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Sku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ProductAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAttributes");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ProductAttributeValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductAttributeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductAttributeId");
+
+                    b.ToTable("ProductAttributeValues");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ProductStockPerBranch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.ToTable("ProductStockPerBranches");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ProductVariant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("StockQuantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UnitType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductVariants");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.PurchaseInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("PurchaseInvoices");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.PurchaseInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.HasIndex("PurchaseInvoiceId");
+
+                    b.ToTable("PurchaseInvoiceItems");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Return", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SalesInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SalesInvoiceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Returns");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ReturnItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ReturnId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.HasIndex("ReturnId");
+
+                    b.ToTable("ReturnItems");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.SalesInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("SalesInvoices");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.SalesInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SalesInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.HasIndex("SalesInvoiceId");
+
+                    b.ToTable("SalesInvoiceItems");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.ShippingAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AddressLine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShippingAddresses");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.SoftDeleteLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RowId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SoftDeleteLogs");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.StockAdjustment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QuantityChanged")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("ProductVariantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("StockAdjustments");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Unit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AllowDecimal")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.UnitConversion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Factor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ToUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("UnitConversions");
+                });
+
+            modelBuilder.Entity("ERP.Core.Models.Users", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -97,19 +1045,14 @@ namespace ERP.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -147,16 +1090,70 @@ namespace ERP.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "NormalizedEmail" }, "EmailIndex");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.HasIndex(new[] { "NormalizedUserName" }, "UserNameIndex")
+                    b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasFilter("([NormalizedUserName] IS NOT NULL)");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserClaim", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -176,12 +1173,12 @@ namespace ERP.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "UserId" }, "IX_AspNetUserClaims_UserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserLogin", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -198,12 +1195,27 @@ namespace ERP.EF.Migrations
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex(new[] { "UserId" }, "IX_AspNetUserLogins_UserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserToken", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -219,1154 +1231,12 @@ namespace ERP.EF.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("ERP.Core.Models.AuditLog", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Action")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NewValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RowId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_AUDIT_LOGS_UserId");
-
-                    b.ToTable("AUDIT_LOGS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Branch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BRANCHES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.CashierSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ClosedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("ClosingAmount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("OpenedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("OpeningAmount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalRefunds")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("TotalSales")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "BranchId" }, "IX_CASHIER_SESSIONS_BranchId");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_CASHIER_SESSIONS_UserId");
-
-                    b.ToTable("CASHIER_SESSIONS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Category1id")
-                        .HasColumnType("int")
-                        .HasColumnName("CATEGORY1Id");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Category1id" }, "IX_CATEGORIES_CATEGORY1Id");
-
-                    b.ToTable("CATEGORIES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Coupon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DiscountType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal?>("MaxDiscount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal?>("MinOrder")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("COUPONS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Discount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("DiscountType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DISCOUNTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ErrorLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StackTrace")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ERROR_LOGS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.InventoryTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("InventoryTransactionTypesid")
-                        .HasColumnType("int")
-                        .HasColumnName("INVENTORY_TRANSACTION_TYPESId");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("QuantityChange")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int?>("ReferenceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransactionTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "BranchId" }, "IX_INVENTORY_TRANSACTIONS_BranchId");
-
-                    b.HasIndex(new[] { "InventoryTransactionTypesid" }, "IX_INVENTORY_TRANSACTIONS_INVENTORY_TRANSACTION_TYPESId");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_INVENTORY_TRANSACTIONS_PRODUCT_VARIANTSId");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_INVENTORY_TRANSACTIONS_UserId");
-
-                    b.ToTable("INVENTORY_TRANSACTIONS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.InventoryTransactionType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("INVENTORY_TRANSACTION_TYPES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.OnlineCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_ONLINE_CARTS_UserId");
-
-                    b.ToTable("ONLINE_CARTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.OnlineCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OnlineCartId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OnlineCartsid")
-                        .HasColumnType("int")
-                        .HasColumnName("ONLINE_CARTSId");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "OnlineCartsid" }, "IX_ONLINE_CART_ITEMS_ONLINE_CARTSId");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_ONLINE_CART_ITEMS_PRODUCT_VARIANTSId");
-
-                    b.ToTable("ONLINE_CART_ITEMS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OrderNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Shipping")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int?>("ShippingAddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShippingAddressesid")
-                        .HasColumnType("int")
-                        .HasColumnName("SHIPPING_ADDRESSESId");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ShippingAddressesid" }, "IX_ORDERS_SHIPPING_ADDRESSESId");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_ORDERS_UserId");
-
-                    b.ToTable("ORDERS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "OrderId" }, "IX_ORDER_ITEMS_OrderId");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_ORDER_ITEMS_PRODUCT_VARIANTSId");
-
-                    b.ToTable("ORDER_ITEMS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentMethodId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PaymentMethodsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PAYMENT_METHODSId");
-
-                    b.Property<int>("SalesInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SalesInvoicesid")
-                        .HasColumnType("int")
-                        .HasColumnName("SALES_INVOICESId");
-
-                    b.Property<string>("TransactionRef")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "PaymentMethodsid" }, "IX_PAYMENTS_PAYMENT_METHODSId");
-
-                    b.HasIndex(new[] { "SalesInvoicesid" }, "IX_PAYMENTS_SALES_INVOICESId");
-
-                    b.ToTable("PAYMENTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PAYMENT_METHODS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("BasePrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Sku")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SKU");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "CategoryId" }, "IX_PRODUCTS_CategoryId");
-
-                    b.ToTable("PRODUCTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ProductAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductId" }, "IX_PRODUCT_ATTRIBUTES_ProductId");
-
-                    b.ToTable("PRODUCT_ATTRIBUTES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ProductAttributeValue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductAttributeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductAttributesid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_ATTRIBUTESId");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductAttributesid" }, "IX_PRODUCT_ATTRIBUTE_VALUES_PRODUCT_ATTRIBUTESId");
-
-                    b.ToTable("PRODUCT_ATTRIBUTE_VALUES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ProductImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductId" }, "IX_PRODUCT_IMAGES_ProductId");
-
-                    b.ToTable("PRODUCT_IMAGES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ProductStockPerBranch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "BranchId" }, "IX_PRODUCT_STOCK_PER_BRANCH_BranchId");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_PRODUCT_STOCK_PER_BRANCH_PRODUCT_VARIANTSId");
-
-                    b.ToTable("PRODUCT_STOCK_PER_BRANCH", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ProductVariant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sku")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("StockQuantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("UnitType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductId" }, "IX_PRODUCT_VARIANTS_ProductId");
-
-                    b.ToTable("PRODUCT_VARIANTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.PurchaseInvoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InvoiceNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "SupplierId" }, "IX_PURCHASE_INVOICES_SupplierId");
-
-                    b.ToTable("PURCHASE_INVOICES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.PurchaseInvoiceItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("CostPrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<int>("PurchaseInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PurchaseInvoicesid")
-                        .HasColumnType("int")
-                        .HasColumnName("PURCHASE_INVOICESId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_PURCHASE_INVOICE_ITEMS_PRODUCT_VARIANTSId");
-
-                    b.HasIndex(new[] { "PurchaseInvoicesid" }, "IX_PURCHASE_INVOICE_ITEMS_PURCHASE_INVOICESId");
-
-                    b.ToTable("PURCHASE_INVOICE_ITEMS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Return", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SalesInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SalesInvoicesid")
-                        .HasColumnType("int")
-                        .HasColumnName("SALES_INVOICESId");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "SalesInvoicesid" }, "IX_RETURNS_SALES_INVOICESId");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_RETURNS_UserId");
-
-                    b.ToTable("RETURNS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ReturnItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ReturnId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_RETURN_ITEMS_PRODUCT_VARIANTSId");
-
-                    b.HasIndex(new[] { "ReturnId" }, "IX_RETURN_ITEMS_ReturnId");
-
-                    b.ToTable("RETURN_ITEMS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.SalesInvoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PaymentStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Userid")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("USERId");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "BranchId" }, "IX_SALES_INVOICES_BranchId");
-
-                    b.HasIndex(new[] { "Userid" }, "IX_SALES_INVOICES_USERId");
-
-                    b.HasIndex(new[] { "UsersId" }, "IX_SALES_INVOICES_UsersId");
-
-                    b.ToTable("SALES_INVOICES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.SalesInvoiceItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("SalesInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SalesInvoicesid")
-                        .HasColumnType("int")
-                        .HasColumnName("SALES_INVOICESId");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_SALES_INVOICE_ITEMS_PRODUCT_VARIANTSId");
-
-                    b.HasIndex(new[] { "SalesInvoicesid" }, "IX_SALES_INVOICE_ITEMS_SALES_INVOICESId");
-
-                    b.ToTable("SALES_INVOICE_ITEMS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.ShippingAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AddressLine")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_SHIPPING_ADDRESSES_UserId");
-
-                    b.ToTable("SHIPPING_ADDRESSES", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.SoftDeleteLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("RowId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_SOFT_DELETE_LOG_UserId");
-
-                    b.ToTable("SOFT_DELETE_LOG", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.StockAdjustment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductVariantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductVariantsid")
-                        .HasColumnType("int")
-                        .HasColumnName("PRODUCT_VARIANTSId");
-
-                    b.Property<decimal>("QuantityChanged")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "BranchId" }, "IX_STOCK_ADJUSTMENTS_BranchId");
-
-                    b.HasIndex(new[] { "ProductVariantsid" }, "IX_STOCK_ADJUSTMENTS_PRODUCT_VARIANTSId");
-
-                    b.HasIndex(new[] { "UserId" }, "IX_STOCK_ADJUSTMENTS_UserId");
-
-                    b.ToTable("STOCK_ADJUSTMENTS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Supplier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SUPPLIERS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.Unit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("AllowDecimal")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UNITS", (string)null);
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.UnitConversion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Factor")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("FromUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToUnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "FromUnitId" }, "IX_UNIT_CONVERSIONS_FromUnitId");
-
-                    b.HasIndex(new[] { "ToUnitId" }, "IX_UNIT_CONVERSIONS_ToUnitId");
-
-                    b.ToTable("UNIT_CONVERSIONS", (string)null);
-                });
-
-            modelBuilder.Entity("AspNetUserRole", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ERP.Core.Models.AspNetUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetRoleClaim", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetRole", "Role")
-                        .WithMany("AspNetRoleClaims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserClaim", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserClaims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserLogin", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserLogins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetUserToken", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AuditLog", b =>
-                {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("AuditLogs")
                         .HasForeignKey("UserId");
 
@@ -1381,7 +1251,7 @@ namespace ERP.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("CashierSessions")
                         .HasForeignKey("UserId");
 
@@ -1392,11 +1262,9 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.Category", b =>
                 {
-                    b.HasOne("ERP.Core.Models.Category", "Category1")
-                        .WithMany("InverseCategory1")
-                        .HasForeignKey("Category1id");
-
-                    b.Navigation("Category1");
+                    b.HasOne("ERP.Core.Models.Category", null)
+                        .WithMany("SubCategores")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("ERP.Core.Models.InventoryTransaction", b =>
@@ -1409,13 +1277,15 @@ namespace ERP.EF.Migrations
 
                     b.HasOne("ERP.Core.Models.InventoryTransactionType", "InventoryTransactionTypes")
                         .WithMany("InventoryTransactions")
-                        .HasForeignKey("InventoryTransactionTypesid");
+                        .HasForeignKey("InventoryTransactionTypesId");
 
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("InventoryTransactions")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("InventoryTransactions")
                         .HasForeignKey("UserId");
 
@@ -1430,7 +1300,7 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.OnlineCart", b =>
                 {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("OnlineCarts")
                         .HasForeignKey("UserId");
 
@@ -1441,11 +1311,15 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.OnlineCart", "OnlineCarts")
                         .WithMany("OnlineCartItems")
-                        .HasForeignKey("OnlineCartsid");
+                        .HasForeignKey("OnlineCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("OnlineCartItems")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("OnlineCarts");
 
@@ -1458,7 +1332,7 @@ namespace ERP.EF.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("ShippingAddressesid");
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
 
@@ -1477,7 +1351,9 @@ namespace ERP.EF.Migrations
 
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("OrderItems")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Order");
 
@@ -1488,11 +1364,15 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.PaymentMethod", "PaymentMethods")
                         .WithMany("Payments")
-                        .HasForeignKey("PaymentMethodsid");
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERP.Core.Models.SalesInvoice", "SalesInvoices")
                         .WithMany("Payments")
-                        .HasForeignKey("SalesInvoicesid");
+                        .HasForeignKey("SalesInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PaymentMethods");
 
@@ -1525,7 +1405,9 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.ProductAttribute", "ProductAttributes")
                         .WithMany("ProductAttributeValues")
-                        .HasForeignKey("ProductAttributesid");
+                        .HasForeignKey("ProductAttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ProductAttributes");
                 });
@@ -1551,7 +1433,9 @@ namespace ERP.EF.Migrations
 
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("ProductStockPerBranches")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Branch");
 
@@ -1584,11 +1468,15 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("PurchaseInvoiceItems")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERP.Core.Models.PurchaseInvoice", "PurchaseInvoices")
                         .WithMany("PurchaseInvoiceItems")
-                        .HasForeignKey("PurchaseInvoicesid");
+                        .HasForeignKey("PurchaseInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ProductVariants");
 
@@ -1599,9 +1487,11 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.SalesInvoice", "SalesInvoices")
                         .WithMany("Returns")
-                        .HasForeignKey("SalesInvoicesid");
+                        .HasForeignKey("SalesInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("Returns")
                         .HasForeignKey("UserId");
 
@@ -1614,7 +1504,9 @@ namespace ERP.EF.Migrations
                 {
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("ReturnItems")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERP.Core.Models.Return", "Return")
                         .WithMany("ReturnItems")
@@ -1635,30 +1527,28 @@ namespace ERP.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
-                        .WithMany("SalesInvoiceUsers")
-                        .HasForeignKey("Userid");
-
-                    b.HasOne("ERP.Core.Models.AspNetUser", "Users")
-                        .WithMany("SalesInvoiceUsersNavigation")
+                    b.HasOne("ERP.Core.Models.Users", "User")
+                        .WithMany("SalesInvoice")
                         .HasForeignKey("UsersId");
 
                     b.Navigation("Branch");
 
                     b.Navigation("User");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ERP.Core.Models.SalesInvoiceItem", b =>
                 {
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("SalesInvoiceItems")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ERP.Core.Models.SalesInvoice", "SalesInvoices")
                         .WithMany("SalesInvoiceItems")
-                        .HasForeignKey("SalesInvoicesid");
+                        .HasForeignKey("SalesInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ProductVariants");
 
@@ -1667,7 +1557,7 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.ShippingAddress", b =>
                 {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("ShippingAddresses")
                         .HasForeignKey("UserId");
 
@@ -1676,7 +1566,7 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.SoftDeleteLog", b =>
                 {
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("SoftDeleteLogs")
                         .HasForeignKey("UserId");
 
@@ -1693,9 +1583,11 @@ namespace ERP.EF.Migrations
 
                     b.HasOne("ERP.Core.Models.ProductVariant", "ProductVariants")
                         .WithMany("StockAdjustments")
-                        .HasForeignKey("ProductVariantsid");
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.AspNetUser", "User")
+                    b.HasOne("ERP.Core.Models.Users", "User")
                         .WithMany("StockAdjustments")
                         .HasForeignKey("UserId");
 
@@ -1708,55 +1600,64 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.UnitConversion", b =>
                 {
-                    b.HasOne("ERP.Core.Models.Unit", "FromUnit")
+                    b.HasOne("ERP.Core.Models.Unit", "Unit")
                         .WithMany("UnitConversionFromUnits")
-                        .HasForeignKey("FromUnitId")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ERP.Core.Models.Unit", "ToUnit")
-                        .WithMany("UnitConversionToUnits")
-                        .HasForeignKey("ToUnitId")
+                    b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("ERP.Core.Models.Users", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("ERP.Core.Models.Users", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FromUnit");
-
-                    b.Navigation("ToUnit");
+                    b.HasOne("ERP.Core.Models.Users", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("ERP.Core.Models.AspNetRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Navigation("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("ERP.Core.Models.AspNetUser", b =>
-                {
-                    b.Navigation("AspNetUserClaims");
-
-                    b.Navigation("AspNetUserLogins");
-
-                    b.Navigation("AspNetUserTokens");
-
-                    b.Navigation("AuditLogs");
-
-                    b.Navigation("CashierSessions");
-
-                    b.Navigation("InventoryTransactions");
-
-                    b.Navigation("OnlineCarts");
-
-                    b.Navigation("Orders");
-
-                    b.Navigation("Returns");
-
-                    b.Navigation("SalesInvoiceUsers");
-
-                    b.Navigation("SalesInvoiceUsersNavigation");
-
-                    b.Navigation("ShippingAddresses");
-
-                    b.Navigation("SoftDeleteLogs");
-
-                    b.Navigation("StockAdjustments");
+                    b.HasOne("ERP.Core.Models.Users", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ERP.Core.Models.Branch", b =>
@@ -1774,9 +1675,9 @@ namespace ERP.EF.Migrations
 
             modelBuilder.Entity("ERP.Core.Models.Category", b =>
                 {
-                    b.Navigation("InverseCategory1");
-
                     b.Navigation("Products");
+
+                    b.Navigation("SubCategores");
                 });
 
             modelBuilder.Entity("ERP.Core.Models.InventoryTransactionType", b =>
@@ -1864,8 +1765,29 @@ namespace ERP.EF.Migrations
             modelBuilder.Entity("ERP.Core.Models.Unit", b =>
                 {
                     b.Navigation("UnitConversionFromUnits");
+                });
 
-                    b.Navigation("UnitConversionToUnits");
+            modelBuilder.Entity("ERP.Core.Models.Users", b =>
+                {
+                    b.Navigation("AuditLogs");
+
+                    b.Navigation("CashierSessions");
+
+                    b.Navigation("InventoryTransactions");
+
+                    b.Navigation("OnlineCarts");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Returns");
+
+                    b.Navigation("SalesInvoice");
+
+                    b.Navigation("ShippingAddresses");
+
+                    b.Navigation("SoftDeleteLogs");
+
+                    b.Navigation("StockAdjustments");
                 });
 #pragma warning restore 612, 618
         }

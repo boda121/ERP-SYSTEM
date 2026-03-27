@@ -1,13 +1,23 @@
+﻿using AutoMapper;
+using ERP.API.Mapping;
 using ERP.Core.Interfaces;
+using ERP.Core.Models;
 using ERP.EF;
 using ERP.EF.Repository;
-using Microsoft.EntityFrameworkCore;
 using ERP.Services.Services.Implementations;
-using ERP.Core.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddDbContext<AppDbContext>(Optins =>
+Optins.UseSqlServer(connectionString,b=> b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
+);
 // Add services to the container.
 
 builder.Services.AddControllers()
@@ -15,25 +25,45 @@ builder.Services.AddControllers()
 {
     options.JsonSerializerOptions.ReferenceHandler =
         System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-}); 
-builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
+});
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient(typeof(IService_Layer<>), typeof(Service_Layer<>));
-builder.Services.AddTransient<IProduct_Service, product_service>(); 
-builder.Services.AddScoped<OrderService>(); 
-builder.Services.AddScoped<AuditLog>(); 
-builder.Services.AddScoped<SoftDeleteLog>(); 
-builder.Services.AddScoped<ErrorLog>(); 
-builder.Services.AddScoped<InventoryTransaction>(); 
-builder.Services.AddScoped<PurchaseInvoice>(); 
-builder.Services.AddScoped<PurchaseInvoiceItem>(); 
-builder.Services.AddScoped<PurchaseService>(); 
+builder.Services.AddTransient<IProduct_Service, product_service>();
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<AuditLog>();
+builder.Services.AddScoped<SoftDeleteLog>();
+builder.Services.AddScoped<ErrorLog>();
+builder.Services.AddScoped<InventoryTransaction>();
+builder.Services.AddScoped<PurchaseInvoice>();
+builder.Services.AddScoped<PurchaseInvoiceItem>();
+builder.Services.AddScoped<PurchaseService>();
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddEndpointsApiExplorer();
 // Add Swagger
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>(Optins =>
-Optins.UseSqlServer(connectionString,b=> b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
-);
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddIdentityApiEndpoints<Users>()
+    .AddEntityFrameworkStores<AppDbContext>();
+// 👇 1. إضافة الـ JWT Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true, // تحقق من مصدر التوكن
+        ValidateAudience = true, // تحقق من المستهدفين
+        ValidateLifetime = true, // تحقق من صلاحية التوكن
+        ValidateIssuerSigningKey = true, // تحقق من مفتاح التوقيع
+        ValidIssuer = builder.Configuration["Jwt:Issuer"], // من appsettings.json
+        ValidAudience = builder.Configuration["Jwt:Audience"], // من appsettings.json
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+        )
+    };
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -54,8 +84,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
+app.MapIdentityApi<Users>();
 
 app.Run();

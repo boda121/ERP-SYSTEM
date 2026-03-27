@@ -181,6 +181,8 @@ C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\AutoMapper.E
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Azure.Identity.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Humanizer.dll
+C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
@@ -322,6 +324,7 @@ C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\ERP.API.Asse
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\ERP.API.csproj.CoreCompileInputs.cache
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\ERP.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\ERP.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\ERP.API.sourcelink.json
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

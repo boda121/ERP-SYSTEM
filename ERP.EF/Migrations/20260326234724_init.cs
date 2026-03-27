@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ERP.EF.Migrations
 {
     /// <inheritdoc />
-    public partial class @in : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,8 +30,6 @@ namespace ERP.EF.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -53,7 +51,7 @@ namespace ERP.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BRANCHES",
+                name: "Branches",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -64,11 +62,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BRANCHES", x => x.Id);
+                    table.PrimaryKey("PK_Branches", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CATEGORIES",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -76,20 +74,21 @@ namespace ERP.EF.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CATEGORY1Id = table.Column<int>(type: "int", nullable: true)
+                    Category1id = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CATEGORIES", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CATEGORIES_CATEGORIES_CATEGORY1Id",
-                        column: x => x.CATEGORY1Id,
-                        principalTable: "CATEGORIES",
+                        name: "FK_Categories_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "COUPONS",
+                name: "Coupons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -104,11 +103,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_COUPONS", x => x.Id);
+                    table.PrimaryKey("PK_Coupons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DISCOUNTS",
+                name: "Discounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -123,11 +122,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DISCOUNTS", x => x.Id);
+                    table.PrimaryKey("PK_Discounts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ERROR_LOGS",
+                name: "ErrorLogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -138,11 +137,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ERROR_LOGS", x => x.Id);
+                    table.PrimaryKey("PK_ErrorLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "INVENTORY_TRANSACTION_TYPES",
+                name: "InventoryTransactionTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -152,11 +151,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_INVENTORY_TRANSACTION_TYPES", x => x.Id);
+                    table.PrimaryKey("PK_InventoryTransactionTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PAYMENT_METHODS",
+                name: "PaymentMethods",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -166,11 +165,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PAYMENT_METHODS", x => x.Id);
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SUPPLIERS",
+                name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -183,11 +182,11 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SUPPLIERS", x => x.Id);
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UNITS",
+                name: "Units",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -198,7 +197,7 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UNITS", x => x.Id);
+                    table.PrimaryKey("PK_Units", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -308,7 +307,7 @@ namespace ERP.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AUDIT_LOGS",
+                name: "AuditLogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -323,16 +322,16 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AUDIT_LOGS", x => x.Id);
+                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AUDIT_LOGS_AspNetUsers_UserId",
+                        name: "FK_AuditLogs_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ONLINE_CARTS",
+                name: "OnlineCarts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -343,16 +342,16 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ONLINE_CARTS", x => x.Id);
+                    table.PrimaryKey("PK_OnlineCarts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ONLINE_CARTS_AspNetUsers_UserId",
+                        name: "FK_OnlineCarts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SHIPPING_ADDRESSES",
+                name: "ShippingAddresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -366,16 +365,16 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SHIPPING_ADDRESSES", x => x.Id);
+                    table.PrimaryKey("PK_ShippingAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SHIPPING_ADDRESSES_AspNetUsers_UserId",
+                        name: "FK_ShippingAddresses_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SOFT_DELETE_LOG",
+                name: "SoftDeleteLogs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -387,16 +386,16 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SOFT_DELETE_LOG", x => x.Id);
+                    table.PrimaryKey("PK_SoftDeleteLogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SOFT_DELETE_LOG_AspNetUsers_UserId",
+                        name: "FK_SoftDeleteLogs_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CASHIER_SESSIONS",
+                name: "CashierSessions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -412,22 +411,22 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CASHIER_SESSIONS", x => x.Id);
+                    table.PrimaryKey("PK_CashierSessions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CASHIER_SESSIONS_AspNetUsers_UserId",
+                        name: "FK_CashierSessions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CASHIER_SESSIONS_BRANCHES_BranchId",
+                        name: "FK_CashierSessions_Branches_BranchId",
                         column: x => x.BranchId,
-                        principalTable: "BRANCHES",
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SALES_INVOICES",
+                name: "SalesInvoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -440,37 +439,31 @@ namespace ERP.EF.Migrations
                     GrandTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    USERId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SALES_INVOICES", x => x.Id);
+                    table.PrimaryKey("PK_SalesInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SALES_INVOICES_AspNetUsers_USERId",
-                        column: x => x.USERId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SALES_INVOICES_AspNetUsers_UsersId",
+                        name: "FK_SalesInvoices_AspNetUsers_UsersId",
                         column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_SALES_INVOICES_BRANCHES_BranchId",
+                        name: "FK_SalesInvoices_Branches_BranchId",
                         column: x => x.BranchId,
-                        principalTable: "BRANCHES",
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCTS",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SKU = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     UnitId = table.Column<int>(type: "int", nullable: false),
@@ -480,17 +473,17 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCTS", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCTS_CATEGORIES_CategoryId",
+                        name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "CATEGORIES",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PURCHASE_INVOICES",
+                name: "PurchaseInvoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -503,42 +496,38 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PURCHASE_INVOICES", x => x.Id);
+                    table.PrimaryKey("PK_PurchaseInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PURCHASE_INVOICES_SUPPLIERS_SupplierId",
+                        name: "FK_PurchaseInvoices_Suppliers_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "SUPPLIERS",
+                        principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UNIT_CONVERSIONS",
+                name: "UnitConversions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FromUnitId = table.Column<int>(type: "int", nullable: false),
                     ToUnitId = table.Column<int>(type: "int", nullable: false),
-                    Factor = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Factor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UNIT_CONVERSIONS", x => x.Id);
+                    table.PrimaryKey("PK_UnitConversions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UNIT_CONVERSIONS_UNITS_FromUnitId",
-                        column: x => x.FromUnitId,
-                        principalTable: "UNITS",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_UNIT_CONVERSIONS_UNITS_ToUnitId",
-                        column: x => x.ToUnitId,
-                        principalTable: "UNITS",
-                        principalColumn: "Id");
+                        name: "FK_UnitConversions_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ORDERS",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -554,25 +543,25 @@ namespace ERP.EF.Migrations
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    SHIPPING_ADDRESSESId = table.Column<int>(type: "int", nullable: true)
+                    ShippingAddressesid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ORDERS", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ORDERS_AspNetUsers_UserId",
+                        name: "FK_Orders_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ORDERS_SHIPPING_ADDRESSES_SHIPPING_ADDRESSESId",
-                        column: x => x.SHIPPING_ADDRESSESId,
-                        principalTable: "SHIPPING_ADDRESSES",
+                        name: "FK_Orders_ShippingAddresses_ShippingAddressesid",
+                        column: x => x.ShippingAddressesid,
+                        principalTable: "ShippingAddresses",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "PAYMENTS",
+                name: "Payments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -581,27 +570,27 @@ namespace ERP.EF.Migrations
                     PaymentMethodId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TransactionRef = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PAYMENT_METHODSId = table.Column<int>(type: "int", nullable: true),
-                    SALES_INVOICESId = table.Column<int>(type: "int", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PAYMENTS", x => x.Id);
+                    table.PrimaryKey("PK_Payments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PAYMENTS_PAYMENT_METHODS_PAYMENT_METHODSId",
-                        column: x => x.PAYMENT_METHODSId,
-                        principalTable: "PAYMENT_METHODS",
-                        principalColumn: "Id");
+                        name: "FK_Payments_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PAYMENTS_SALES_INVOICES_SALES_INVOICESId",
-                        column: x => x.SALES_INVOICESId,
-                        principalTable: "SALES_INVOICES",
-                        principalColumn: "Id");
+                        name: "FK_Payments_SalesInvoices_SalesInvoiceId",
+                        column: x => x.SalesInvoiceId,
+                        principalTable: "SalesInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RETURNS",
+                name: "Returns",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -610,26 +599,26 @@ namespace ERP.EF.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    SALES_INVOICESId = table.Column<int>(type: "int", nullable: true)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RETURNS", x => x.Id);
+                    table.PrimaryKey("PK_Returns", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RETURNS_AspNetUsers_UserId",
+                        name: "FK_Returns_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RETURNS_SALES_INVOICES_SALES_INVOICESId",
-                        column: x => x.SALES_INVOICESId,
-                        principalTable: "SALES_INVOICES",
-                        principalColumn: "Id");
+                        name: "FK_Returns_SalesInvoices_SalesInvoiceId",
+                        column: x => x.SalesInvoiceId,
+                        principalTable: "SalesInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCT_ATTRIBUTES",
+                name: "ProductAttributes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -640,17 +629,17 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCT_ATTRIBUTES", x => x.Id);
+                    table.PrimaryKey("PK_ProductAttributes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_ATTRIBUTES_PRODUCTS_ProductId",
+                        name: "FK_ProductAttributes_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "PRODUCTS",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCT_IMAGES",
+                name: "ProductImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -662,17 +651,17 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCT_IMAGES", x => x.Id);
+                    table.PrimaryKey("PK_ProductImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_IMAGES_PRODUCTS_ProductId",
+                        name: "FK_ProductImages_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "PRODUCTS",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCT_VARIANTS",
+                name: "ProductVariants",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -687,38 +676,38 @@ namespace ERP.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCT_VARIANTS", x => x.Id);
+                    table.PrimaryKey("PK_ProductVariants", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_VARIANTS_PRODUCTS_ProductId",
+                        name: "FK_ProductVariants_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "PRODUCTS",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCT_ATTRIBUTE_VALUES",
+                name: "ProductAttributeValues",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductAttributeId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    PRODUCT_ATTRIBUTESId = table.Column<int>(type: "int", nullable: true)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCT_ATTRIBUTE_VALUES", x => x.Id);
+                    table.PrimaryKey("PK_ProductAttributeValues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_ATTRIBUTE_VALUES_PRODUCT_ATTRIBUTES_PRODUCT_ATTRIBUTESId",
-                        column: x => x.PRODUCT_ATTRIBUTESId,
-                        principalTable: "PRODUCT_ATTRIBUTES",
-                        principalColumn: "Id");
+                        name: "FK_ProductAttributeValues_ProductAttributes_ProductAttributeId",
+                        column: x => x.ProductAttributeId,
+                        principalTable: "ProductAttributes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "INVENTORY_TRANSACTIONS",
+                name: "InventoryTransactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -731,37 +720,37 @@ namespace ERP.EF.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    INVENTORY_TRANSACTION_TYPESId = table.Column<int>(type: "int", nullable: true),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    InventoryTransactionTypesId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_INVENTORY_TRANSACTIONS", x => x.Id);
+                    table.PrimaryKey("PK_InventoryTransactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_INVENTORY_TRANSACTIONS_AspNetUsers_UserId",
+                        name: "FK_InventoryTransactions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_INVENTORY_TRANSACTIONS_BRANCHES_BranchId",
+                        name: "FK_InventoryTransactions_Branches_BranchId",
                         column: x => x.BranchId,
-                        principalTable: "BRANCHES",
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_INVENTORY_TRANSACTIONS_INVENTORY_TRANSACTION_TYPES_INVENTORY_TRANSACTION_TYPESId",
-                        column: x => x.INVENTORY_TRANSACTION_TYPESId,
-                        principalTable: "INVENTORY_TRANSACTION_TYPES",
+                        name: "FK_InventoryTransactions_InventoryTransactionTypes_InventoryTransactionTypesId",
+                        column: x => x.InventoryTransactionTypesId,
+                        principalTable: "InventoryTransactionTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_INVENTORY_TRANSACTIONS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_InventoryTransactions_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ONLINE_CART_ITEMS",
+                name: "OnlineCartItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -769,27 +758,27 @@ namespace ERP.EF.Migrations
                     OnlineCartId = table.Column<int>(type: "int", nullable: false),
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ONLINE_CARTSId = table.Column<int>(type: "int", nullable: true),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ONLINE_CART_ITEMS", x => x.Id);
+                    table.PrimaryKey("PK_OnlineCartItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ONLINE_CART_ITEMS_ONLINE_CARTS_ONLINE_CARTSId",
-                        column: x => x.ONLINE_CARTSId,
-                        principalTable: "ONLINE_CARTS",
-                        principalColumn: "Id");
+                        name: "FK_OnlineCartItems_OnlineCarts_OnlineCartId",
+                        column: x => x.OnlineCartId,
+                        principalTable: "OnlineCarts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ONLINE_CART_ITEMS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_OnlineCartItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ORDER_ITEMS",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -797,54 +786,54 @@ namespace ERP.EF.Migrations
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ORDER_ITEMS", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ORDER_ITEMS_ORDERS_OrderId",
+                        name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "ORDERS",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ORDER_ITEMS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_OrderItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCT_STOCK_PER_BRANCH",
+                name: "ProductStockPerBranches",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PRODUCT_STOCK_PER_BRANCH", x => x.Id);
+                    table.PrimaryKey("PK_ProductStockPerBranches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_STOCK_PER_BRANCH_BRANCHES_BranchId",
+                        name: "FK_ProductStockPerBranches_Branches_BranchId",
                         column: x => x.BranchId,
-                        principalTable: "BRANCHES",
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PRODUCT_STOCK_PER_BRANCH_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_ProductStockPerBranches_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PURCHASE_INVOICE_ITEMS",
+                name: "PurchaseInvoiceItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -852,27 +841,27 @@ namespace ERP.EF.Migrations
                     PurchaseInvoiceId = table.Column<int>(type: "int", nullable: false),
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CostPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true),
-                    PURCHASE_INVOICESId = table.Column<int>(type: "int", nullable: true)
+                    CostPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PURCHASE_INVOICE_ITEMS", x => x.Id);
+                    table.PrimaryKey("PK_PurchaseInvoiceItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PURCHASE_INVOICE_ITEMS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_PurchaseInvoiceItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PURCHASE_INVOICE_ITEMS_PURCHASE_INVOICES_PURCHASE_INVOICESId",
-                        column: x => x.PURCHASE_INVOICESId,
-                        principalTable: "PURCHASE_INVOICES",
-                        principalColumn: "Id");
+                        name: "FK_PurchaseInvoiceItems_PurchaseInvoices_PurchaseInvoiceId",
+                        column: x => x.PurchaseInvoiceId,
+                        principalTable: "PurchaseInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RETURN_ITEMS",
+                name: "ReturnItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -880,27 +869,27 @@ namespace ERP.EF.Migrations
                     ReturnId = table.Column<int>(type: "int", nullable: false),
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RETURN_ITEMS", x => x.Id);
+                    table.PrimaryKey("PK_ReturnItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RETURN_ITEMS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_ReturnItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RETURN_ITEMS_RETURNS_ReturnId",
+                        name: "FK_ReturnItems_Returns_ReturnId",
                         column: x => x.ReturnId,
-                        principalTable: "RETURNS",
+                        principalTable: "Returns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SALES_INVOICE_ITEMS",
+                name: "SalesInvoiceItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -909,27 +898,27 @@ namespace ERP.EF.Migrations
                     ProductVariantId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true),
-                    SALES_INVOICESId = table.Column<int>(type: "int", nullable: true)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SALES_INVOICE_ITEMS", x => x.Id);
+                    table.PrimaryKey("PK_SalesInvoiceItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SALES_INVOICE_ITEMS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_SalesInvoiceItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SALES_INVOICE_ITEMS_SALES_INVOICES_SALES_INVOICESId",
-                        column: x => x.SALES_INVOICESId,
-                        principalTable: "SALES_INVOICES",
-                        principalColumn: "Id");
+                        name: "FK_SalesInvoiceItems_SalesInvoices_SalesInvoiceId",
+                        column: x => x.SalesInvoiceId,
+                        principalTable: "SalesInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "STOCK_ADJUSTMENTS",
+                name: "StockAdjustments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -939,28 +928,28 @@ namespace ERP.EF.Migrations
                     QuantityChanged = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PRODUCT_VARIANTSId = table.Column<int>(type: "int", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_STOCK_ADJUSTMENTS", x => x.Id);
+                    table.PrimaryKey("PK_StockAdjustments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_STOCK_ADJUSTMENTS_AspNetUsers_UserId",
+                        name: "FK_StockAdjustments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_STOCK_ADJUSTMENTS_BRANCHES_BranchId",
+                        name: "FK_StockAdjustments_Branches_BranchId",
                         column: x => x.BranchId,
-                        principalTable: "BRANCHES",
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_STOCK_ADJUSTMENTS_PRODUCT_VARIANTS_PRODUCT_VARIANTSId",
-                        column: x => x.PRODUCT_VARIANTSId,
-                        principalTable: "PRODUCT_VARIANTS",
-                        principalColumn: "Id");
+                        name: "FK_StockAdjustments_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -973,7 +962,7 @@ namespace ERP.EF.Migrations
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true,
-                filter: "([NormalizedName] IS NOT NULL)");
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -1000,222 +989,212 @@ namespace ERP.EF.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
-                filter: "([NormalizedUserName] IS NOT NULL)");
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AUDIT_LOGS_UserId",
-                table: "AUDIT_LOGS",
+                name: "IX_AuditLogs_UserId",
+                table: "AuditLogs",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CASHIER_SESSIONS_BranchId",
-                table: "CASHIER_SESSIONS",
+                name: "IX_CashierSessions_BranchId",
+                table: "CashierSessions",
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CASHIER_SESSIONS_UserId",
-                table: "CASHIER_SESSIONS",
+                name: "IX_CashierSessions_UserId",
+                table: "CashierSessions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CATEGORIES_CATEGORY1Id",
-                table: "CATEGORIES",
-                column: "CATEGORY1Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_INVENTORY_TRANSACTIONS_BranchId",
-                table: "INVENTORY_TRANSACTIONS",
-                column: "BranchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_INVENTORY_TRANSACTIONS_INVENTORY_TRANSACTION_TYPESId",
-                table: "INVENTORY_TRANSACTIONS",
-                column: "INVENTORY_TRANSACTION_TYPESId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_INVENTORY_TRANSACTIONS_PRODUCT_VARIANTSId",
-                table: "INVENTORY_TRANSACTIONS",
-                column: "PRODUCT_VARIANTSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_INVENTORY_TRANSACTIONS_UserId",
-                table: "INVENTORY_TRANSACTIONS",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ONLINE_CART_ITEMS_ONLINE_CARTSId",
-                table: "ONLINE_CART_ITEMS",
-                column: "ONLINE_CARTSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ONLINE_CART_ITEMS_PRODUCT_VARIANTSId",
-                table: "ONLINE_CART_ITEMS",
-                column: "PRODUCT_VARIANTSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ONLINE_CARTS_UserId",
-                table: "ONLINE_CARTS",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ORDER_ITEMS_OrderId",
-                table: "ORDER_ITEMS",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ORDER_ITEMS_PRODUCT_VARIANTSId",
-                table: "ORDER_ITEMS",
-                column: "PRODUCT_VARIANTSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ORDERS_SHIPPING_ADDRESSESId",
-                table: "ORDERS",
-                column: "SHIPPING_ADDRESSESId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ORDERS_UserId",
-                table: "ORDERS",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PAYMENTS_PAYMENT_METHODSId",
-                table: "PAYMENTS",
-                column: "PAYMENT_METHODSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PAYMENTS_SALES_INVOICESId",
-                table: "PAYMENTS",
-                column: "SALES_INVOICESId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_ATTRIBUTE_VALUES_PRODUCT_ATTRIBUTESId",
-                table: "PRODUCT_ATTRIBUTE_VALUES",
-                column: "PRODUCT_ATTRIBUTESId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_ATTRIBUTES_ProductId",
-                table: "PRODUCT_ATTRIBUTES",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_IMAGES_ProductId",
-                table: "PRODUCT_IMAGES",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_STOCK_PER_BRANCH_BranchId",
-                table: "PRODUCT_STOCK_PER_BRANCH",
-                column: "BranchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_STOCK_PER_BRANCH_PRODUCT_VARIANTSId",
-                table: "PRODUCT_STOCK_PER_BRANCH",
-                column: "PRODUCT_VARIANTSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCT_VARIANTS_ProductId",
-                table: "PRODUCT_VARIANTS",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PRODUCTS_CategoryId",
-                table: "PRODUCTS",
+                name: "IX_Categories_CategoryId",
+                table: "Categories",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PURCHASE_INVOICE_ITEMS_PRODUCT_VARIANTSId",
-                table: "PURCHASE_INVOICE_ITEMS",
-                column: "PRODUCT_VARIANTSId");
+                name: "IX_InventoryTransactions_BranchId",
+                table: "InventoryTransactions",
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PURCHASE_INVOICE_ITEMS_PURCHASE_INVOICESId",
-                table: "PURCHASE_INVOICE_ITEMS",
-                column: "PURCHASE_INVOICESId");
+                name: "IX_InventoryTransactions_InventoryTransactionTypesId",
+                table: "InventoryTransactions",
+                column: "InventoryTransactionTypesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PURCHASE_INVOICES_SupplierId",
-                table: "PURCHASE_INVOICES",
+                name: "IX_InventoryTransactions_ProductVariantId",
+                table: "InventoryTransactions",
+                column: "ProductVariantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryTransactions_UserId",
+                table: "InventoryTransactions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OnlineCartItems_OnlineCartId",
+                table: "OnlineCartItems",
+                column: "OnlineCartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OnlineCartItems_ProductVariantId",
+                table: "OnlineCartItems",
+                column: "ProductVariantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OnlineCarts_UserId",
+                table: "OnlineCarts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_ProductVariantId",
+                table: "OrderItems",
+                column: "ProductVariantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ShippingAddressesid",
+                table: "Orders",
+                column: "ShippingAddressesid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_PaymentMethodId",
+                table: "Payments",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_SalesInvoiceId",
+                table: "Payments",
+                column: "SalesInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductAttributes_ProductId",
+                table: "ProductAttributes",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductAttributeValues_ProductAttributeId",
+                table: "ProductAttributeValues",
+                column: "ProductAttributeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductImages_ProductId",
+                table: "ProductImages",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductStockPerBranches_BranchId",
+                table: "ProductStockPerBranches",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductStockPerBranches_ProductVariantId",
+                table: "ProductStockPerBranches",
+                column: "ProductVariantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductVariants_ProductId",
+                table: "ProductVariants",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseInvoiceItems_ProductVariantId",
+                table: "PurchaseInvoiceItems",
+                column: "ProductVariantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseInvoiceItems_PurchaseInvoiceId",
+                table: "PurchaseInvoiceItems",
+                column: "PurchaseInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseInvoices_SupplierId",
+                table: "PurchaseInvoices",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RETURN_ITEMS_PRODUCT_VARIANTSId",
-                table: "RETURN_ITEMS",
-                column: "PRODUCT_VARIANTSId");
+                name: "IX_ReturnItems_ProductVariantId",
+                table: "ReturnItems",
+                column: "ProductVariantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RETURN_ITEMS_ReturnId",
-                table: "RETURN_ITEMS",
+                name: "IX_ReturnItems_ReturnId",
+                table: "ReturnItems",
                 column: "ReturnId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RETURNS_SALES_INVOICESId",
-                table: "RETURNS",
-                column: "SALES_INVOICESId");
+                name: "IX_Returns_SalesInvoiceId",
+                table: "Returns",
+                column: "SalesInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RETURNS_UserId",
-                table: "RETURNS",
+                name: "IX_Returns_UserId",
+                table: "Returns",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SALES_INVOICE_ITEMS_PRODUCT_VARIANTSId",
-                table: "SALES_INVOICE_ITEMS",
-                column: "PRODUCT_VARIANTSId");
+                name: "IX_SalesInvoiceItems_ProductVariantId",
+                table: "SalesInvoiceItems",
+                column: "ProductVariantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SALES_INVOICE_ITEMS_SALES_INVOICESId",
-                table: "SALES_INVOICE_ITEMS",
-                column: "SALES_INVOICESId");
+                name: "IX_SalesInvoiceItems_SalesInvoiceId",
+                table: "SalesInvoiceItems",
+                column: "SalesInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SALES_INVOICES_BranchId",
-                table: "SALES_INVOICES",
+                name: "IX_SalesInvoices_BranchId",
+                table: "SalesInvoices",
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SALES_INVOICES_USERId",
-                table: "SALES_INVOICES",
-                column: "USERId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SALES_INVOICES_UsersId",
-                table: "SALES_INVOICES",
+                name: "IX_SalesInvoices_UsersId",
+                table: "SalesInvoices",
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SHIPPING_ADDRESSES_UserId",
-                table: "SHIPPING_ADDRESSES",
+                name: "IX_ShippingAddresses_UserId",
+                table: "ShippingAddresses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SOFT_DELETE_LOG_UserId",
-                table: "SOFT_DELETE_LOG",
+                name: "IX_SoftDeleteLogs_UserId",
+                table: "SoftDeleteLogs",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_STOCK_ADJUSTMENTS_BranchId",
-                table: "STOCK_ADJUSTMENTS",
+                name: "IX_StockAdjustments_BranchId",
+                table: "StockAdjustments",
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_STOCK_ADJUSTMENTS_PRODUCT_VARIANTSId",
-                table: "STOCK_ADJUSTMENTS",
-                column: "PRODUCT_VARIANTSId");
+                name: "IX_StockAdjustments_ProductVariantId",
+                table: "StockAdjustments",
+                column: "ProductVariantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_STOCK_ADJUSTMENTS_UserId",
-                table: "STOCK_ADJUSTMENTS",
+                name: "IX_StockAdjustments_UserId",
+                table: "StockAdjustments",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UNIT_CONVERSIONS_FromUnitId",
-                table: "UNIT_CONVERSIONS",
-                column: "FromUnitId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UNIT_CONVERSIONS_ToUnitId",
-                table: "UNIT_CONVERSIONS",
-                column: "ToUnitId");
+                name: "IX_UnitConversions_UnitId",
+                table: "UnitConversions",
+                column: "UnitId");
         }
 
         /// <inheritdoc />
@@ -1237,109 +1216,109 @@ namespace ERP.EF.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AUDIT_LOGS");
+                name: "AuditLogs");
 
             migrationBuilder.DropTable(
-                name: "CASHIER_SESSIONS");
+                name: "CashierSessions");
 
             migrationBuilder.DropTable(
-                name: "COUPONS");
+                name: "Coupons");
 
             migrationBuilder.DropTable(
-                name: "DISCOUNTS");
+                name: "Discounts");
 
             migrationBuilder.DropTable(
-                name: "ERROR_LOGS");
+                name: "ErrorLogs");
 
             migrationBuilder.DropTable(
-                name: "INVENTORY_TRANSACTIONS");
+                name: "InventoryTransactions");
 
             migrationBuilder.DropTable(
-                name: "ONLINE_CART_ITEMS");
+                name: "OnlineCartItems");
 
             migrationBuilder.DropTable(
-                name: "ORDER_ITEMS");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "PAYMENTS");
+                name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "PRODUCT_ATTRIBUTE_VALUES");
+                name: "ProductAttributeValues");
 
             migrationBuilder.DropTable(
-                name: "PRODUCT_IMAGES");
+                name: "ProductImages");
 
             migrationBuilder.DropTable(
-                name: "PRODUCT_STOCK_PER_BRANCH");
+                name: "ProductStockPerBranches");
 
             migrationBuilder.DropTable(
-                name: "PURCHASE_INVOICE_ITEMS");
+                name: "PurchaseInvoiceItems");
 
             migrationBuilder.DropTable(
-                name: "RETURN_ITEMS");
+                name: "ReturnItems");
 
             migrationBuilder.DropTable(
-                name: "SALES_INVOICE_ITEMS");
+                name: "SalesInvoiceItems");
 
             migrationBuilder.DropTable(
-                name: "SOFT_DELETE_LOG");
+                name: "SoftDeleteLogs");
 
             migrationBuilder.DropTable(
-                name: "STOCK_ADJUSTMENTS");
+                name: "StockAdjustments");
 
             migrationBuilder.DropTable(
-                name: "UNIT_CONVERSIONS");
+                name: "UnitConversions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "INVENTORY_TRANSACTION_TYPES");
+                name: "InventoryTransactionTypes");
 
             migrationBuilder.DropTable(
-                name: "ONLINE_CARTS");
+                name: "OnlineCarts");
 
             migrationBuilder.DropTable(
-                name: "ORDERS");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "PAYMENT_METHODS");
+                name: "PaymentMethods");
 
             migrationBuilder.DropTable(
-                name: "PRODUCT_ATTRIBUTES");
+                name: "ProductAttributes");
 
             migrationBuilder.DropTable(
-                name: "PURCHASE_INVOICES");
+                name: "PurchaseInvoices");
 
             migrationBuilder.DropTable(
-                name: "RETURNS");
+                name: "Returns");
 
             migrationBuilder.DropTable(
-                name: "PRODUCT_VARIANTS");
+                name: "ProductVariants");
 
             migrationBuilder.DropTable(
-                name: "UNITS");
+                name: "Units");
 
             migrationBuilder.DropTable(
-                name: "SHIPPING_ADDRESSES");
+                name: "ShippingAddresses");
 
             migrationBuilder.DropTable(
-                name: "SUPPLIERS");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
-                name: "SALES_INVOICES");
+                name: "SalesInvoices");
 
             migrationBuilder.DropTable(
-                name: "PRODUCTS");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "BRANCHES");
+                name: "Branches");
 
             migrationBuilder.DropTable(
-                name: "CATEGORIES");
+                name: "Categories");
         }
     }
 }
