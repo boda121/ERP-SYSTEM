@@ -15,8 +15,6 @@ public partial class ReturnItem
 
     public decimal Amount { get; set; }
 
-    public int? ProductVariantsid { get; set; }
-
     public virtual ProductVariant? ProductVariants { get; set; }
 
     public virtual Return Return { get; set; } = null!;

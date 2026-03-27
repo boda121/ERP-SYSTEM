@@ -14,11 +14,9 @@ namespace ERP.Services.Services.Implementations
     public class OrderService
     {
         private readonly IUnitOfWork _Context;
-        private readonly IMapper _mapper;
-        public OrderService(IUnitOfWork unit, IMapper mapper) 
+        public OrderService(IUnitOfWork unit) 
         {
         this._Context = unit;
-        this._mapper = mapper;
         }
 
         public async Task<CreateOrderDto?> AddOrderitem(CreateOrderDto orderDto)

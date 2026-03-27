@@ -25,5 +25,5 @@ public partial class CashierSession
 
     public virtual Branch Branch { get; set; } = null!;
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

@@ -25,8 +25,6 @@ public partial class SalesInvoice
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public string? Userid { get; set; }
-
     public virtual Branch Branch { get; set; } = null!;
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
@@ -35,7 +33,6 @@ public partial class SalesInvoice
 
     public virtual ICollection<SalesInvoiceItem> SalesInvoiceItems { get; set; } = new List<SalesInvoiceItem>();
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 
-    public virtual AspNetUser? Users { get; set; }
 }

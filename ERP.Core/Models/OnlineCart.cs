@@ -15,5 +15,5 @@ public partial class OnlineCart
 
     public virtual ICollection<OnlineCartItem> OnlineCartItems { get; set; } = new List<OnlineCartItem>();
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

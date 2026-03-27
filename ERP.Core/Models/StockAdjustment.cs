@@ -19,11 +19,9 @@ public partial class StockAdjustment
 
     public DateTime CreatedAt { get; set; }
 
-    public int? ProductVariantsid { get; set; }
-
     public virtual Branch Branch { get; set; } = null!;
 
     public virtual ProductVariant? ProductVariants { get; set; }
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

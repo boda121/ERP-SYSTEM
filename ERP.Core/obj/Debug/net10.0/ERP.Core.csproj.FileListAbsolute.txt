@@ -18,6 +18,7 @@ C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.Ge
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.AssemblyInfoInputs.cache
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.AssemblyInfo.cs
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.csproj.CoreCompileInputs.cache
+C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.sourcelink.json
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\refint\ERP.Core.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.Core\obj\Debug\net10.0\ERP.Core.pdb

@@ -23,15 +23,11 @@ public partial class InventoryTransaction
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public int? InventoryTransactionTypesid { get; set; }
-
-    public int? ProductVariantsid { get; set; }
-
     public virtual Branch Branch { get; set; } = null!;
 
     public virtual InventoryTransactionType? InventoryTransactionTypes { get; set; }
 
     public virtual ProductVariant? ProductVariants { get; set; }
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

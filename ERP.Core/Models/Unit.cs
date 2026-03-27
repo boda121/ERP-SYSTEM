@@ -15,5 +15,4 @@ public partial class Unit
 
     public virtual ICollection<UnitConversion> UnitConversionFromUnits { get; set; } = new List<UnitConversion>();
 
-    public virtual ICollection<UnitConversion> UnitConversionToUnits { get; set; } = new List<UnitConversion>();
 }

@@ -17,10 +17,6 @@ public  class SalesInvoiceItem
 
     public decimal Total { get; set; }
 
-    public int? ProductVariantsid { get; set; }
-
-    public int? SalesInvoicesid { get; set; }
-
     public virtual ProductVariant? ProductVariants { get; set; }
 
     public virtual SalesInvoice? SalesInvoices { get; set; }

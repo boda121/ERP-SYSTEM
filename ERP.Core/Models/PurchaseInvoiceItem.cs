@@ -15,10 +15,6 @@ public partial class PurchaseInvoiceItem
 
     public decimal CostPrice { get; set; }
 
-    public int? ProductVariantsid { get; set; }
-
-    public int? PurchaseInvoicesid { get; set; }
-
     public virtual ProductVariant? ProductVariants { get; set; }
 
     public virtual PurchaseInvoice? PurchaseInvoices { get; set; }

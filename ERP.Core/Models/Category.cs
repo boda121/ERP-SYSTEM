@@ -14,10 +14,7 @@ public partial class Category
     public bool IsDeleted { get; set; }
 
     public int? Category1id { get; set; }
-
-    public virtual Category? Category1 { get; set; }
-
-    public virtual ICollection<Category> InverseCategory1 { get; set; } = new List<Category>();
+    public virtual ICollection<Category> SubCategores { get; set; } = new List<Category>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

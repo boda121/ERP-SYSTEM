@@ -12,8 +12,5 @@ public class ProductAttributeValue
     public string? Value { get; set; }
 
     public bool IsDeleted { get; set; }
-
-    public int? ProductAttributesid { get; set; }
-
     public virtual ProductAttribute? ProductAttributes { get; set; }
 }

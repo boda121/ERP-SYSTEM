@@ -17,10 +17,6 @@ public partial class Payment
 
     public DateTime CreatedAt { get; set; }
 
-    public int? PaymentMethodsid { get; set; }
-
-    public int? SalesInvoicesid { get; set; }
-
     public virtual PaymentMethod? PaymentMethods { get; set; }
 
     public virtual SalesInvoice? SalesInvoices { get; set; }

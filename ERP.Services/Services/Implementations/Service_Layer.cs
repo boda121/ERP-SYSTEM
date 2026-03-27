@@ -31,15 +31,14 @@ namespace ERP.Services.Services.Implementations
                 if (entity != null)
                 {
                     _Context.Repository<T>().Add(entity);
-                    _Context.Commit();
                     var propertyInfo = entity.GetType().GetProperty("Id");
                     int? res = (int?)propertyInfo?.GetValue(entity);
                     _auditLog.Action = $"Add {typeof(T).Name}";
                     _auditLog.TableName = $"{typeof(T).Name}";
                     _auditLog.RowId = res;
-                    _auditLog.UserId = "18b2bed5-f7cd-437f-afe7-95ccef0fdde1";
+                    _auditLog.UserId = "61fb6e59-ab7d-4935-9cb2-f7c9c57a4d99";
                     _Context.Repository<AuditLog>().Add(_auditLog);
-                   await _Context.Commit();
+                    await _Context.Commit();
                     var en = _mapper.Map<T>(entity);
                     return en;
                 }
@@ -77,7 +76,7 @@ namespace ERP.Services.Services.Implementations
                 }
                 else
                 {
-                    _softDelete.UserId = "18b2bed5-f7cd-437f-afe7-95ccef0fdde1";
+                    _softDelete.UserId = "61fb6e59-ab7d-4935-9cb2-f7c9c57a4d99";
                 }
                 _Context.Repository<SoftDeleteLog>().Add(_softDelete);
                 await _Context.Commit();
@@ -131,14 +130,14 @@ namespace ERP.Services.Services.Implementations
                 prop.SetValue(entity, false);
                 _softDelete.TableName = $"{typeof(T).Name} Recovryd";
                 _softDelete.RowId = id;
-                _softDelete.UserId = "18b2bed5-f7cd-437f-afe7-95ccef0fdde1";
+                _softDelete.UserId = "61fb6e59-ab7d-4935-9cb2-f7c9c57a4d99";
                 if (iduser != null)
                 {
                     _softDelete.UserId = iduser;
                 }
                 else
                 {
-                    _softDelete.UserId = "18b2bed5-f7cd-437f-afe7-95ccef0fdde1";
+                    _softDelete.UserId = "61fb6e59-ab7d-4935-9cb2-f7c9c57a4d99";
                 }
                 _Context.Repository<SoftDeleteLog>().Add(_softDelete);
                await _Context.Commit();
@@ -159,7 +158,7 @@ namespace ERP.Services.Services.Implementations
               _Context.Repository<T>().Update(entitys);
              _auditLog.Action = $"Edit {typeof(T).Name}";
              _auditLog.TableName = $"{typeof(T).Name}";
-             _auditLog.UserId = "18b2bed5-f7cd-437f-afe7-95ccef0fdde1";
+             _auditLog.UserId = "61fb6e59-ab7d-4935-9cb2-f7c9c57a4d99";
              _Context.Repository<AuditLog>().Add(_auditLog);
             await _Context.Commit();
             return entity;

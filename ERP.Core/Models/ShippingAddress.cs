@@ -21,5 +21,5 @@ public partial class ShippingAddress
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

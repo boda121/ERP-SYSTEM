@@ -21,5 +21,5 @@ public partial class AuditLog
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

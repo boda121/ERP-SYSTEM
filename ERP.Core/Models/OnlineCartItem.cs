@@ -15,10 +15,6 @@ public partial class OnlineCartItem
 
     public decimal UnitPrice { get; set; }
 
-    public int? OnlineCartsid { get; set; }
-
-    public int? ProductVariantsid { get; set; }
-
     public virtual OnlineCart? OnlineCarts { get; set; }
 
     public virtual ProductVariant? ProductVariants { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ERP.Core.DTOs;
 using ERP.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERP.API.Controllers
@@ -22,6 +23,7 @@ namespace ERP.API.Controllers
         }
 
         [HttpPost("AddProduct")]
+        [Authorize]
         public async Task<IActionResult> Add([FromForm] CreateProductDto prod )
         {
            await _service.Add(prod);

@@ -17,11 +17,9 @@ public partial class Return
 
     public bool IsDeleted { get; set; }
 
-    public int? SalesInvoicesid { get; set; }
-
     public virtual ICollection<ReturnItem> ReturnItems { get; set; } = new List<ReturnItem>();
 
     public virtual SalesInvoice? SalesInvoices { get; set; }
 
-    public virtual AspNetUser? User { get; set; }
+    public virtual Users? User { get; set; }
 }

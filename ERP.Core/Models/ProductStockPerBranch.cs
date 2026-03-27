@@ -13,7 +13,6 @@ public partial class ProductStockPerBranch
 
     public decimal Quantity { get; set; } 
 
-    public int? ProductVariantsid { get; set; }
 
     public virtual Branch Branch { get; set; } = null!;
 
