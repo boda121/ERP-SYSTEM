@@ -4,7 +4,7 @@ using ERP.Core.Models;
 
 namespace ERP.API.Mapping
 {
-    public class MappingProfile : Profile
+    public class MappingProfile : Profile 
     {
         public MappingProfile()
         {
@@ -22,6 +22,7 @@ namespace ERP.API.Mapping
             CreateMap<Order,CreateOrderDto>().ReverseMap();
             CreateMap<OrderItem,OrderItemDto>().ReverseMap();
             CreateMap<Supplier,SupplierDto>().ReverseMap();
+          //  CreateMap<Branch, Branch>().ForMember(dest=> dest.Id , opt=>opt.Ignore() );
 
         }
     }

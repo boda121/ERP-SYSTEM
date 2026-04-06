@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+
 namespace ERP.Services.Services.Implementations
 {
     public class product_service : IProduct_Service
@@ -13,8 +14,7 @@ namespace ERP.Services.Services.Implementations
         private readonly IUnitOfWork _Context;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
-        private readonly ILogger<product_service> _logger;
-
+      //  private readonly ILogger<product_service> _logger;
 
         public product_service(IUnitOfWork cotext,IMapper mapper, IHostingEnvironment env)
         {
@@ -22,86 +22,119 @@ namespace ERP.Services.Services.Implementations
             _mapper = mapper;
             _env = env;
         }
-
-        public async Task<IEnumerable<productDto>> GetAllProductsAsync()
+        public async Task<ApiResponse<Product, IEnumerable<productDto>>> GetAllProductsAsync()
         {
             var products= await _Context.product.GetAllAsync(x=> x.ProductVariants, x => x.ProductAttributes, x=> x.ProductImages);
             products = products.Where(x => x.IsDeleted != true);
             var prod= _mapper.Map<IEnumerable<productDto>>(products);
-            return prod;
+            return new ApiResponse<Product, IEnumerable<productDto>>(prod,"dssd");
         }
-
-        public async Task<CreateProductDto> Add([FromForm] CreateProductDto prod)
+        public async Task<ApiResponse<Product, productDto>> Add([FromForm] CreateProductDto prod)
         {
-            var res = _mapper.Map<Product>(prod);
-            _Context.product.Add(res);
-            await _Context.Commit();
-            foreach (var img in prod.ProductImages)
+            try
             {
-                var fileName = $"{Guid.NewGuid()}_{img.FileName}";
-                var savePath = Path.Combine(_env.ContentRootPath, "Uploads", "Products", fileName);
-                using (var stream = new FileStream(savePath, FileMode.Create))
+
+                var res = _mapper.Map<Product>(prod);
+                //  await _Context.Commit();
+                foreach (var img in prod.ProductImages)
                 {
-                    await img.CopyToAsync(stream);
+                    var fileName = $"{Guid.NewGuid()}_{img.FileName}";
+                    var savePath = Path.Combine(_env.ContentRootPath, "Uploads", "Products", fileName);
+                    using (var stream = new FileStream(savePath, FileMode.Create))
+                    {
+                        await img.CopyToAsync(stream);
+                    }
+                    res.ProductImages.Add(new ProductImage
+                    {
+                        Url = fileName// نخزن الاسم فقط
+                    });
                 }
-                // إضافة الصورة لقائمة الـ ProductImages
-                res.ProductImages.Add(new ProductImage
-                {
-                    Url = fileName// نخزن الاسم فقط
-                });
-                //  prod.ProductImagesUrl.Add(fileName);
+                _Context.product.Add(res);
+                await _Context.Commit();
+                var resultafterMap = _mapper.Map<productDto>(res);
+                return new ApiResponse<Product, productDto>(resultafterMap, "success");
             }
-            await _Context.Commit();
-            return prod;
-        }
-        
-
-        public async Task<productDto> GetByID(int id)
-        {
-            var products =await _Context.product.GetAllAsync(x => x.ProductVariants, x => x.ProductImages, x => x.ProductAttributes);
-            var product = products.Where(x=>x.Id == id).FirstOrDefault();
-            var pto = _mapper.Map<productDto>(product);
-            return pto;
-        }
-
-        public async Task<CreateProductDto> update(int id, CreateProductDto product)
-        {
-            var products = await _Context.product.GetAllAsync(x => x.ProductVariants, x => x.ProductImages, x => x.ProductAttributes);
-            var res = products.Where(x => x.Id == id).FirstOrDefault();
-            res = _mapper.Map(product, res);
-            await _Context.Commit();
-            return product;
-        }
-
-        public async Task<string> DeleteProduct(int id)
-        {
-            var res = await _Context.product.GetByIdAsync(id);
-            if (res != null)
+            catch (Exception ex)
             {
-                if (res.IsDeleted == false)
+                return new ApiResponse<Product, productDto>(ex.Message,400);
+            }
+        }
+        public async Task<ApiResponse<Product, productDto>> GetByID(int id)
+        {
+            try
+            {
+                var products = await _Context.product.GetAllAsync(x => x.ProductVariants, x => x.ProductImages, x => x.ProductAttributes);
+                var product = products.Where(x => x.Id == id).FirstOrDefault();
+                if (product != null)
                 {
-                    res.IsDeleted = true;
-                    res.IsActive = false;
-                    await _Context.Commit();
-                    return ("Deleted is Done");
+                    var productFTERMAP = _mapper.Map<productDto>(product);
+                    return new ApiResponse<Product, productDto>(productFTERMAP,"Success");
                 }
-                else if (res.IsDeleted == true)
+                return new ApiResponse<Product, productDto>("Not Found Any Item",404);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<Product, productDto>(ex.Message,400);
+            }
+        }
+        public async Task<ApiResponse<Product, productDto>> update(int id, CreateProductDto product)
+        {
+            try
+            {
+
+                var products = await _Context.product.GetAllAsync(x => x.ProductVariants, x => x.ProductImages, x => x.ProductAttributes);
+                var res = products.Where(x => x.Id == id).FirstOrDefault();
+                if (res != null)
                 {
-                    return ("Product is Deleted already");
+                   var mapresult  = _mapper.Map(product,res);
+                    var dto = _mapper.Map<productDto>(mapresult);
+                    await _Context.Commit();
+                    return new ApiResponse<Product, productDto>(dto,"Success");
+
+                }
+                return new ApiResponse<Product, productDto>("Not Found Any Item For This ID",404);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<Product, productDto>(ex.Message, 400);
+            }
+        }
+        public async Task<ApiResponse<Product, productDto>> DeleteProduct(int id)
+        {
+            try
+            {
+
+                var res = await _Context.product.GetByIdAsync(id);
+                if (res != null)
+                {
+                    if (res.IsDeleted == false)
+                    {
+                        res.IsDeleted = true;
+                        res.IsActive = false;
+                        await _Context.Commit();
+                        var result = _mapper.Map<productDto>(res);
+                        return new ApiResponse<Product, productDto>(result,"Success");
+
+                    }
+                    else 
+                    {
+                    return new ApiResponse<Product, productDto>("Product is Deleted already", 401);
+
+                    }
                 }
                 else
                 {
-                    return ("Error");
 
+                    return new ApiResponse<Product, productDto>("Not Found Any Item", 404);
                 }
             }
-            else
+            catch (Exception ex)
             {
-
-                return ("Product Not Found");
+                return new ApiResponse<Product, productDto>(ex.Message, 400);
             }
+
         }
-        public async Task<string> RecovryProduct(int id)
+        public async Task<ApiResponse<Product, productDto>> RecovryProduct(int id)
         {
             var res = await _Context.product.GetByIdAsync(id);
             if (res != null)
@@ -111,22 +144,20 @@ namespace ERP.Services.Services.Implementations
                     res.IsDeleted = false;
                     res.IsActive = true;
                     await _Context.Commit();
-                    return ("Recovry is Done");
+                    var result = _mapper.Map<productDto>(res);
+                    return new ApiResponse<Product, productDto>(result, "Success");
                 }
-                else if (res.IsDeleted == false)
+                else 
                 {
-                    return ("Product is Recovryed already");
-                }
-                else
-                {
-                    return ("Error");
+                    return new ApiResponse<Product, productDto>("Product is Recovryed already", 401);
 
                 }
+
             }
             else
             {
+                return new ApiResponse<Product, productDto>("Product Not Found", 404);
 
-                return ("Product Not Found");
             }
         }
     }

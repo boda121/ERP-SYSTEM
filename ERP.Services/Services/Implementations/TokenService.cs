@@ -23,7 +23,7 @@ namespace ERP.Services.Services.Implementations
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.ToString())
+              //  new Claim(ClaimTypes.Role, user.ToString())
             };
 
             var key = new SymmetricSecurityKey(

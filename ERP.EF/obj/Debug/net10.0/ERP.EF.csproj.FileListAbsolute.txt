@@ -26,6 +26,7 @@ C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.Genera
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.AssemblyInfoInputs.cache
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.AssemblyInfo.cs
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.csproj.CoreCompileInputs.cache
+C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.sourcelink.json
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.csproj.Up2Date
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\ERP.EF.dll
 C:\Users\Abdullah\source\repos\ERP-SYSTEM\ERP.EF\obj\Debug\net10.0\refint\ERP.EF.dll

@@ -13,10 +13,10 @@ namespace ERP.API.Controllers
     public class PurchaseController : ControllerBase
     {
         private readonly PurchaseService _purchaseService;
-        private readonly IService_Layer<Supplier> _Supplier;
-        private readonly IService_Layer<PurchaseInvoice> _Purchase;
+        private readonly IService_Layer<Supplier,SupplierDto> _Supplier;
+        private readonly IService_Layer<PurchaseInvoice,PurchaseInvoiceDto> _Purchase;
         private readonly IMapper _mapper;
-        public PurchaseController(PurchaseService purchaseService, IService_Layer<Supplier> Supplier, IService_Layer<PurchaseInvoice> Purchase, IMapper mapper)
+        public PurchaseController(PurchaseService purchaseService, IService_Layer<Supplier,SupplierDto> Supplier, IService_Layer<PurchaseInvoice,PurchaseInvoiceDto> Purchase, IMapper mapper)
         {
             _purchaseService = purchaseService;
             _Supplier = Supplier;
@@ -53,9 +53,9 @@ namespace ERP.API.Controllers
         [HttpPost("AddSupplier")]
         public async Task<IActionResult> AddSupplier(SupplierDto dto)
         {
-            var res = _mapper.Map<Supplier>(dto);
-            await _Supplier.add(res);
-            return Ok(res);
+          //  var res = _mapper.Map<Supplier>(dto);
+            await _Supplier.add(dto);
+            return Ok(dto);
         }
         [HttpGet("GetSupplierByID/{id}")]
         public async Task<IActionResult> GetSupplierByID(int id)
@@ -78,8 +78,7 @@ namespace ERP.API.Controllers
         [HttpDelete("EditSupplier/{id}")]
         public async Task<IActionResult> EditSupplier(int id, SupplierDto dto)
         {
-            var res = _mapper.Map<Supplier>(dto);
-            await _Supplier.Update(id,res);
+            await _Supplier.Update(id,dto);
             return Ok("Done");
         }
     }

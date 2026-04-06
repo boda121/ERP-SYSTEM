@@ -26,43 +26,65 @@ namespace ERP.API.Controllers
         [Authorize]
         public async Task<IActionResult> Add([FromForm] CreateProductDto prod )
         {
-           await _service.Add(prod);
-            return Ok(prod);
+            if(ModelState.IsValid)
+            {
+
+           var Result = await _service.Add(prod);
+                if(Result.IsSuccess)
+            return Ok(await _service.Add(prod));
+                return BadRequest($"{Result.Message+Result.StatusCode}");
+            }
+            return BadRequest();
         }
         [HttpPut("UpdateProduct/id")]
         public async Task<IActionResult> Update(int id , [FromForm] CreateProductDto prod)
         {
-           await _service.update(id,prod);
-            return Ok(prod);
+            if (ModelState.IsValid)
+            {
+               var Result =  await _service.update(id, prod);
+                if(Result.IsSuccess)
+                return Ok(Result);
+                return StatusCode(Result.StatusCode);
+            }
+            return BadRequest();
         }
 
         [HttpGet("GetById/id")]
         public async Task<IActionResult> GetByID(int id)
         {
-            var product = await _service.GetByID(id);
-                return Ok(product);
+            if (ModelState.IsValid)
+            {
+                var Result = await _service.GetByID(id);
+                if (Result.IsSuccess)
+                    return Ok(Result);
+                return StatusCode(Result.StatusCode);
+            }
+            return BadRequest();
         }
 
         [HttpPatch("DeleteProduct/id")]
         public async Task<IActionResult> Delete(int id)
         {
-            var res = await _service.DeleteProduct(id);
-            if(res== "Deleted is Done")
-            return Ok(res);
-            else if(res== "Product is Deleted already")
-            return BadRequest(res);
-            else return NotFound(res);
+            if(ModelState.IsValid)
+            { 
+            var Result = await _service.DeleteProduct(id);
+            if (Result.IsSuccess)
+                return Ok(Result);
+            return StatusCode(Result.StatusCode);
+        }
+            return BadRequest();
         }
         [HttpPatch("RecovryProduct/id")]
         public async Task<IActionResult> RecovryProduct(int id)
         {
-            var res = await _service.RecovryProduct(id);
-            if (res == "Recovry is Done")
-                return Ok(res);
-            else if (res == "Product is Recovryed already")
-                return BadRequest(res);
-            else return NotFound(res);
-
+            if (ModelState.IsValid)
+            {     
+            var Result = await _service.RecovryProduct(id);
+            if (Result.IsSuccess)
+                return Ok(Result);
+            return StatusCode(Result.StatusCode);
         }
+            return BadRequest();
     }
+}
 }

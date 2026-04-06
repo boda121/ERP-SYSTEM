@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ERP.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
 namespace ERP.API.Controllers
 {
     [ApiController]
@@ -9,85 +8,90 @@ namespace ERP.API.Controllers
     public class GenericController<TEntity, TReadDto, TCreateDto> : ControllerBase
      where TEntity : class
     {
-        protected readonly IService_Layer<TEntity> _context;
+        protected readonly IService_Layer<TEntity,TCreateDto> _context;
         protected readonly IMapper _mapper;
-        public GenericController(IService_Layer<TEntity> context, IMapper mapper)
+        public GenericController(IService_Layer<TEntity,TCreateDto> context, IMapper mapper)
         {
             this._context = context;
            this._mapper = mapper;
         }
-
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var data = await _context.getall();
-            var result = _mapper.Map<List<TReadDto>>(data);
+            if (ModelState.IsValid)
+            {
+                var data = await _context.getall();
+                if (!data.IsSuccess)
+                    return StatusCode(data.StatusCode);
+                return Ok(data);
 
-            return Ok(result);
+            }
+                return BadRequest();
         }
-
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var data = await _context.GetById(id);
-
-            var result = _mapper.Map<TReadDto>(data);
-
-            return Ok(result);
+            if (ModelState.IsValid)
+            {
+                var data = await _context.GetById(id);
+                if(data.IsSuccess)
+                return Ok(data);
+                return StatusCode(data.StatusCode);
+            }
+            return BadRequest();
         }
 
         [HttpPost("Add")]
+       // [Authorize]
         public async Task<IActionResult> Add(TCreateDto dto)
         {
-            var entity = _mapper.Map<TEntity>(dto);
-            await _context.add(entity);
-            return Ok(dto);
+            if (ModelState.IsValid)
+            {
+                var result = await _context.add(dto);
+                if (!result.IsSuccess)
+                    return StatusCode(result.StatusCode);
+                return Ok(result);
+            }
+            return BadRequest();
         }
 
         [HttpPut("Edit/{id}")]
-        public async Task<IActionResult> Edit(int id, TReadDto dto)
+        public async Task<IActionResult> Edit(int id, TCreateDto dto)
         {
-           var res= _mapper.Map<TEntity>(dto);
-            await _context.Update(id,res);
-
-            return Ok(dto);
+            if (ModelState.IsValid)
+            {
+                var result = await _context.Update(id, dto);
+                if (result.IsSuccess)
+                return Ok(result);
+                return StatusCode(result.StatusCode);
+            }
+            return BadRequest();
         }
-
-
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (ModelState.IsValid)
             {
 
-             var Result =  await _context.Delete(id);
-                if (Result == $"{typeof(TEntity).Name} Deleted")
-                    return Ok(Result);
-                else if (Result == "This item Already Deleted")
-                    return BadRequest(Result);
-                else if (Result == "Not Found Any Item For This Id")
-                    return NotFound(Result);
+                var Result = await _context.Delete(id);
+                if (!Result.IsSuccess)
+                    return StatusCode(Result.StatusCode);
+                return Ok(Result);
             }
-
-            return BadRequest("Error");
+            return BadRequest();
         }
-
         [HttpDelete("Recovry/{id}")]
         public async Task<IActionResult> Recovry(int id)
         {
             if (ModelState.IsValid)
             {
-
                 var Result = await _context.Recovry(id);
-                if (Result == $"{typeof(TEntity).Name} Recovryd")
-                    return Ok(Result);
-                else if (Result == "This item Already Recovryd")
-                    return BadRequest(Result);
-                else if (Result == "Not Found Any Item For This Id")
-                    return NotFound(Result);
+                if (!Result.IsSuccess)
+                    return StatusCode(Result.StatusCode);
+                return Ok(Result);
             }
-
-            return BadRequest("Error");
+            return BadRequest();
         }
+
     }
 }

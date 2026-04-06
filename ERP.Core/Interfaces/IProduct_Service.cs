@@ -9,12 +9,12 @@ namespace ERP.Core.Interfaces
 {
    public interface  IProduct_Service
     {
-        public Task<CreateProductDto> Add([FromForm] CreateProductDto prod);
-        public Task<IEnumerable<productDto>> GetAllProductsAsync();
-        public Task<productDto> GetByID(int id);
-        public Task<CreateProductDto> update(int id, CreateProductDto product);
-        public  Task<string> DeleteProduct(int id);
-        public  Task<string> RecovryProduct(int id);
+         Task<ApiResponse<Product,productDto>> Add([FromForm] CreateProductDto prod);
+         Task<ApiResponse<Product, IEnumerable<productDto>>> GetAllProductsAsync();
+         Task<ApiResponse<Product, productDto>> GetByID(int id);
+         Task<ApiResponse<Product, productDto>> update(int id, CreateProductDto product);
+         Task<ApiResponse<Product, productDto>> DeleteProduct(int id);
+         Task<ApiResponse<Product, productDto>> RecovryProduct(int id);
 
 
 

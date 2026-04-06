@@ -10,7 +10,7 @@ namespace ERP.API.Controllers
     [Route("[controller]")]
     public class BranchController : GenericController<Branch, BranchDto, BranchDto>
     {
-        public BranchController(IService_Layer<Branch> context, IMapper mapper) : base(context, mapper)
+        public BranchController(IService_Layer<Branch,BranchDto> context, IMapper mapper) : base(context, mapper)
         {
         }
     }

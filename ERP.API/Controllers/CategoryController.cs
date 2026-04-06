@@ -12,7 +12,7 @@ namespace ERP.API.Controllers
     public class CategoryController : GenericController<Category,CategoryDto,CategoryDto>
     {
        
-        public CategoryController(IService_Layer<Category> context, IMapper mapping) : base(context, mapping)
+        public CategoryController(IService_Layer<Category,CategoryDto> context, IMapper mapping) : base(context, mapping)
         {
            
         }
